@@ -14,10 +14,12 @@ def tab(rows, spacing=1, maxw=None):
 
     # Define format
     if maxw:
-        fmt = spc.join(['{%d:<%d.%d}' % (i,
-                                         lth if lth < maxw else maxw,
-                                         lth if lth < maxw else maxw)
-                        for i, lth in enumerate(lens)])
+        cols = ['{%d:<%d.%d}' % \
+                (i,
+                 lth if not maxw[i] or lth < maxw[i] else maxw[i],
+                 lth if not maxw[i] or lth < maxw[i] else maxw[i])
+                for i, lth in enumerate(lens)]
+        fmt = spc.join(cols)
     else:
         fmt = spc.join(['{%d:<%d}' % (i, lth) for i, lth in enumerate(lens)])
 
