@@ -6,18 +6,20 @@ def _measure(rows):
 
     return lens
 
-def tab(rows, maxw=None):
+def tab(rows, spacing=1, maxw=None):
     # Measure
     lens = _measure(rows)
 
+    spc = ' ' * spacing
+
     # Define format
     if maxw:
-        fmt = ' '.join(['{%d:<%d.%d}' % (i,
+        fmt = spc.join(['{%d:<%d.%d}' % (i,
                                          lth if lth < maxw else maxw,
                                          lth if lth < maxw else maxw)
                         for i, lth in enumerate(lens)])
     else:
-        fmt = ' '.join(['{%d:<%d}' % (i, lth) for i, lth in enumerate(lens)])
+        fmt = spc.join(['{%d:<%d}' % (i, lth) for i, lth in enumerate(lens)])
 
     # Print
     for row in rows:
