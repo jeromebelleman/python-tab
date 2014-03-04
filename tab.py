@@ -1,3 +1,5 @@
+import sys
+
 def _measure(rows):
     lens = [0] * len(rows[0])
     for row in rows:
@@ -6,7 +8,7 @@ def _measure(rows):
 
     return lens
 
-def tab(rows, spacing=1, maxw=None):
+def tab(rows, spacing=1, maxw=None, fhl=sys.stdout):
     # Measure
     lens = _measure(rows)
 
@@ -14,15 +16,15 @@ def tab(rows, spacing=1, maxw=None):
 
     # Define format
     if maxw:
-        cols = ['{%d:<%d.%d}' % \
+        cols = ['{%d:%d.%d}' % \
                 (i,
                  lth if not maxw[i] or lth < maxw[i] else maxw[i],
                  lth if not maxw[i] or lth < maxw[i] else maxw[i])
                 for i, lth in enumerate(lens)]
         fmt = spc.join(cols)
     else:
-        fmt = spc.join(['{%d:<%d}' % (i, lth) for i, lth in enumerate(lens)])
+        fmt = spc.join(['{%d:%d}' % (i, lth) for i, lth in enumerate(lens)])
 
     # Print
     for row in rows:
-        print fmt.format(*row)
+        print >> fhl, fmt.format(*row)
