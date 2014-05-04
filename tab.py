@@ -4,7 +4,9 @@ def _measure(rows):
     lens = [0] * len(rows[0])
     for row in rows:
         for i, col in enumerate(row):
-            lens[i] = len(str(col)) if len(str(col)) > lens[i] else lens[i]
+            lens[i] = len(unicode(col)) \
+                      if len(unicode(col)) > lens[i] \
+                      else lens[i]
 
     return lens
 
